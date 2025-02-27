@@ -4,13 +4,24 @@ import io
 import os
 from PIL import Image
 from dotenv import load_dotenv
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+
+# Load credentials from the JSON key file
+credentials = service_account.Credentials.from_service_account_file("service-account.json")
+
+# Build the Google Drive API service
+drive_service = build("drive", "v3", credentials=credentials)
+
+print("Google Drive API authenticated successfully!")
+
 
 load_dotenv()  # Load environment variables from .env file
 
 app = FastAPI()
 
 # Load API key from environment variable
-AI_API_URL = "https://api-inference.huggingface.co/models/your-model"
+AI_API_URL = "https://api-inference.huggingface.co/models/room designing"
 HEADERS = {"Authorization": f"Bearer {os.getenv('HUGGINGFACE_API_KEY')}"}
 
 @app.get("/")
@@ -35,4 +46,3 @@ async def generate_design(file: UploadFile = File(...)):
 
     except Exception as e:
         return {"error": str(e)}
-
