@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+diffusers
+transformers
+accelerate
+pillow
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
